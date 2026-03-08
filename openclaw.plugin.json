@@ -1,0 +1,113 @@
+{
+  "id": "shisanxiang",
+  "name": "十三香小龙虾",
+  "description": "Persistent message-twin engine with self-modeling, reply drafting, and explicit persona council analysis.",
+  "skills": ["./skills"],
+  "uiHints": {
+    "learning.enabled": {
+      "label": "Learning Enabled",
+      "help": "Allow the plugin to learn from eligible private conversations and explicit feedback."
+    },
+    "learning.scope": {
+      "label": "Learning Scope",
+      "help": "Which conversations may feed the twin model."
+    },
+    "models.defaultMode": {
+      "label": "Default Twin Mode",
+      "help": "Default model-selection mode when tools do not specify one."
+    },
+    "models.aspirationalWeight": {
+      "label": "Aspirational Weight",
+      "help": "How much the ideal-self model should influence hybrid decisions."
+    },
+    "autonomy.mode": {
+      "label": "Autonomy Mode",
+      "help": "Execution guardrail policy for the decision twin."
+    },
+    "autonomy.autoSendEnabled": {
+      "label": "Auto Send Enabled",
+      "help": "Allow low-risk private reply drafts to become auto-send candidates."
+    },
+    "autonomy.autoSendConfidenceThreshold": {
+      "label": "Auto Send Threshold",
+      "help": "Minimum confidence required before a draft reply can be auto-send eligible."
+    },
+    "storage.path": {
+      "label": "Storage Path",
+      "help": "SQLite path template used for each agent's 十三香 state database."
+    }
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "enabled": {
+        "type": "boolean",
+        "default": true
+      },
+      "learning": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "default": true
+          },
+          "scope": {
+            "type": "string",
+            "enum": ["main_private_only"],
+            "default": "main_private_only"
+          }
+        }
+      },
+      "models": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "defaultMode": {
+            "type": "string",
+            "enum": ["mirror"],
+            "default": "mirror"
+          },
+          "aspirationalWeight": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.25
+          }
+        }
+      },
+      "autonomy": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": ["balanced"],
+            "default": "balanced"
+          },
+          "autoSendEnabled": {
+            "type": "boolean",
+            "default": false
+          },
+          "autoSendConfidenceThreshold": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.9
+          }
+        }
+      },
+      "storage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "default": "~/.openclaw/agents/{agentId}/shisanxiang.sqlite"
+          }
+        }
+      }
+    }
+  }
+}
