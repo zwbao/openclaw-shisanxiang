@@ -5,13 +5,13 @@ digital twin. Its goal is not just to draft private messages, but to help
 OpenClaw gradually become a usable version of the real you, or the aspirational
 you you explicitly want to become.
 
-The current MVP starts with a narrower slice of that vision: private-message
-drafting that learns from eligible conversations and explicit feedback.
+The current release starts from private-message drafting, because message style
+is one of the fastest ways to train a usable digital twin.
 
 This repository is intentionally written as both:
 
 - a technical README for installing and enabling the plugin
-- a lightweight PRD for what the MVP is actually trying to build
+- a lightweight PRD for what the product is actually trying to build
 
 ## Why the name
 
@@ -49,17 +49,17 @@ The long-term thesis behind `十三香小龙虾` is different:
 > OpenClaw should not only help you.  
 > OpenClaw should gradually become a usable digital twin of you.
 
-The first deployable slice of that idea is not a full digital human. It is a
-much narrower MVP:
+The current product surface is intentionally narrower than the full digital-twin
+vision:
 
 - private-message twin first
 - drafting first, not autonomous action first
 - current self first, ideal self second
 - feedback loop first, personality theater second
 
-## MVP scope
+## Current scope
 
-Current MVP behavior:
+Current behavior:
 
 - Learn only from main/private conversations
 - Default to your **current self**
@@ -72,7 +72,7 @@ Current MVP behavior:
 - Keep `decide` and `council` as secondary tools
 - Do **not** auto-send messages by default
 
-Non-goals for this MVP:
+This version does not try to do the following yet:
 
 - no Control UI panel
 - no mobile or embodied integration
@@ -98,8 +98,8 @@ This separation matters. Without it, the system will confuse:
 
 ## Architecture
 
-The MVP is implemented as a bundled-style OpenClaw plugin with five internal
-subsystems:
+The current plugin is implemented as a bundled-style OpenClaw plugin with five
+internal subsystems:
 
 - `store`
   - SQLite-backed persistence for observations, events, and snapshots
@@ -147,9 +147,9 @@ This repository is currently intended for local/plugin-folder installation.
 
 ```bash
 git clone git@github.com:zwbao/openclaw-shisanxiang.git
-openclaw plugins install /path/to/openclaw-shisanxiang
 cd /path/to/openclaw-shisanxiang
 npm install
+openclaw plugins install .
 ```
 
 Restart the Gateway afterwards.
@@ -193,7 +193,7 @@ Behavior notes:
 
 - `defaultMode: "mirror"` means “like my current self” for normal drafting
 - `ideal` is trained only through explicit feedback or explicit target selection
-- `autoSendEnabled` stays off for the MVP even if a draft is low-risk
+- `autoSendEnabled` stays off by default even if a draft is low-risk
 
 ## Main commands
 
@@ -204,7 +204,84 @@ openclaw shisanxiang council "Should I reply now or wait until tomorrow?"
 openclaw shisanxiang export-model
 ```
 
-## Recommended MVP workflow
+## Quick start tutorial
+
+### 1. Install and enable the plugin
+
+Follow the `Install` and `Enable` sections above, then restart the Gateway so
+the plugin loads with the new config.
+
+### 2. Train it through normal private conversation
+
+Use OpenClaw normally in your main private conversation. The plugin only learns
+from eligible private sessions, so you do not need a special training mode.
+
+Good signals include:
+
+- how you usually open and close replies
+- whether you are brief, direct, warm, or formal
+- what kinds of invitations or requests you tend to accept or reject
+- how you rewrite drafts that are almost right but not quite right
+
+### 3. Inspect what it has learned
+
+After 10 or more eligible turns, run:
+
+```bash
+openclaw shisanxiang status
+```
+
+You should see a summary of:
+
+- observation count
+- pending count
+- current-self snapshot
+- ideal-self snapshot
+- last update time
+
+### 4. Use it to draft a real reply
+
+In OpenClaw, ask it to draft a reply with the plugin tool. A simple pattern is:
+
+> Use `shisanxiang_draft_reply` to draft a reply to this message:  
+> “今晚有空一起吃饭吗？”
+
+The result should include:
+
+- `shouldReply`
+- `draft`
+- `toneNotes`
+- `riskLevel`
+- `confidence`
+- `autoSendEligible`
+
+### 5. Correct it explicitly when it is close but wrong
+
+If the draft is almost right but still sounds off, correct it with explicit
+feedback:
+
+```bash
+openclaw shisanxiang feedback \
+  --item-type draft_reply \
+  --outcome edited \
+  --user-edit "今晚不太方便，改天我来约你。"
+```
+
+Use `--target-model ideal` when you are teaching it how you want to sound,
+rather than how you currently sound by habit.
+
+### 6. Use council mode only when you want explanation
+
+When you want to inspect internal tension between your current self and ideal
+self, run:
+
+```bash
+openclaw shisanxiang council "Should I reply now or wait until tomorrow?"
+```
+
+Treat `council` as an explanation interface, not the default daily workflow.
+
+## Recommended workflow
 
 1. Turn the plugin on and restart the Gateway.
 2. Use OpenClaw normally in a private conversation.
