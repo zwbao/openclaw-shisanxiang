@@ -1,7 +1,7 @@
 {
   "id": "shisanxiang",
   "name": "十三香小龙虾",
-  "description": "Persistent message-twin engine with self-modeling, reply drafting, and explicit persona council analysis.",
+  "description": "Identity-layer plugin for shaping a user's current-self and ideal-self digital twin through message learning and feedback.",
   "skills": ["./skills"],
   "uiHints": {
     "learning.enabled": {

@@ -1,7 +1,7 @@
 {
   "name": "openclaw-shisanxiang",
   "version": "0.1.0",
-  "description": "Shisanxiang message twin plugin for OpenClaw",
+  "description": "OpenClaw identity-layer plugin for building a personal digital twin",
   "type": "module",
   "license": "MIT",
   "repository": {

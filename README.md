@@ -1,8 +1,12 @@
 # openclaw-shisanxiang
 
-`十三香小龙虾` is an OpenClaw plugin for private-message drafting that learns
-from eligible conversations and explicit feedback so OpenClaw gradually sounds
-more like you.
+`十三香小龙虾` is an OpenClaw identity-layer plugin for building a personal
+digital twin. Its goal is not just to draft private messages, but to help
+OpenClaw gradually become a usable version of the real you, or the aspirational
+you you explicitly want to become.
+
+The current MVP starts with a narrower slice of that vision: private-message
+drafting that learns from eligible conversations and explicit feedback.
 
 This repository is intentionally written as both:
 
@@ -43,7 +47,7 @@ That is useful, but still shallow.
 The long-term thesis behind `十三香小龙虾` is different:
 
 > OpenClaw should not only help you.  
-> OpenClaw should gradually become a usable message-level twin of you.
+> OpenClaw should gradually become a usable digital twin of you.
 
 The first deployable slice of that idea is not a full digital human. It is a
 much narrower MVP:
@@ -133,9 +137,9 @@ Think of this plugin as:
 
 It is closer to:
 
-- a reply-style learner
-- a user-model layer for private communication
-- an incremental bridge from “assistant” to “message twin”
+- an identity layer that starts from private communication
+- a user-model system that separates current self from ideal self
+- an incremental bridge from “assistant” to “digital twin”
 
 ## Install
 
