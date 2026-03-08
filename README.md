@@ -8,11 +8,6 @@ you you explicitly want to become.
 The current release starts from private-message drafting, because message style
 is one of the fastest ways to train a usable digital twin.
 
-This repository is intentionally written as both:
-
-- a technical README for installing and enabling the plugin
-- a lightweight PRD for what the product is actually trying to build
-
 ## Why the name
 
 In Chinese internet and food culture, `十三香小龙虾` means crawfish cooked with
